@@ -1,20 +1,15 @@
 import Image from "next/image";
-import Link from "next/link";
 import NavBar from "./navBar";
 
 export default function Footer() {
   return (
     <div>
-      <footer>
-        <h1>You've found the bottom of the bag</h1>
-        <p>
-
-        </p>
-        
         <NavBar/>
+        <footer className="flex flex-1 flex-col items-center justify-center text-xs">
+            <h1 className="flex  items-center">You've found the bottom of the bag!</h1>
+            <p>idk how you found the bottom, it's a bottomless bag... </p>
+            <p>I'm gonna have words with that gnome...</p>
       </footer>
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-      </main>
     </div>
   );
 }
