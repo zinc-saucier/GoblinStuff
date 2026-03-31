@@ -31,9 +31,7 @@ export default function Header() {
       <div className="text-2xl"> 
         <NavBar/>
       </div>
-      <div className="flex flex-row items-center justify-center w-full m-2 p-2">
-        <SearchBar/>
-      </div>
+      
       
     </div>
   );
