@@ -6,6 +6,7 @@ import Footer from "./components/footer";
 import Item from "./components/item";
 import List from "./components/list";
 import SearchBar from "./components/search";
+import MagicalItems from "./dnd-5e/magical-item";
 
 export default function Home() {
   return (
@@ -37,6 +38,7 @@ export default function Home() {
       </div>
     </main>
     <div>
+      
       <Footer/>
     </div>
     </main>
