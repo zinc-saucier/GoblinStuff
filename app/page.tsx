@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import MagicalItems from "./dnd-5e/magical-item";
 
 export default function Home() {
   return (
@@ -10,9 +11,10 @@ export default function Home() {
       <Header/>
     </div>
     <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-
+    <MagicalItems/>
     </main>
     <div>
+      
       <Footer/>
     </div>
     </main>
