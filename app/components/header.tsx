@@ -16,7 +16,8 @@ export default function Header() {
       </header> 
       <div className="flex flex-row items-right justify-end w-full">
         <div className="flex flex-col">
-          <div><p>{<DisplayUserDetails 
+          <div>
+            <p>{<DisplayUserDetails 
             name={user.length > 0 ? user : "Guest"}
             />}</p>
           </div>
