@@ -9,7 +9,7 @@ const DisplayUserDetails = ({
 }: DisplayUserDetailsProps) => {
   return (
     <div>
-      <h2>{`Welcome ${name}`}</h2>
+      {`Welcome ${name}`}
     </div>
   );
 };

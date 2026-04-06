@@ -22,6 +22,7 @@ export default function List({itemList}:list) {
       setHasList(true)
     }
     },[itemList])
+import MagicalItems from "../dnd-5e/magical-item";
 
     return(
         <div>
@@ -44,5 +45,9 @@ export default function List({itemList}:list) {
             </ul>}
           </div>
         </div>
+        <div>A List of Things!
+            <MagicalItems/>
+        </div>
+        
     );
 }

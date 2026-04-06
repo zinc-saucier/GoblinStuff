@@ -3,7 +3,7 @@ import { GoogleAuthProvider, signInWithPopup, AuthError } from "firebase/auth";
 //import { auth } from "@/util/firebase";
 import { useRouter } from "next/navigation";
 //import { useUserStore } from "@/util/store";
-//import LoginForm from "@/components/email_login";
+//import LoginForm from "@/components/Login";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -28,4 +28,8 @@ export default function LoginPage() {
       <button onClick={handleGoogleLogin}>Sign in with Google</button>
     </main>
   );
+}
+
+function useUserStore(arg0: (state: any) => any) {
+  throw new Error("Function not implemented.");
 }
