@@ -16,10 +16,9 @@ export default function Header() {
       </header> 
       <div className="flex flex-row items-right justify-end w-full">
         <div className="flex flex-col">
-          <div>
-            <h2>{<DisplayUserDetails 
+          <div>{<DisplayUserDetails 
             name={user.length > 0 ? user : "Guest"}
-            />}</h2>
+            />}
           </div>
           <div>
             {!isLoggedin && <p><Link href="/login">Login/test</Link></p>}

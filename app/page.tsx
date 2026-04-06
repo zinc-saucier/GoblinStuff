@@ -17,7 +17,7 @@ export default function Home() {
     <main className="flex min-h-screen w-full flex-3 flex-row justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
       <div className="flex flex-3 w-full flex-row justify-evenly">
         <div>
-          <Item/>
+          <Item name={""} desc={""} image={""} equipment_cat={""} variant={false}/>
         </div>
         <div className="flex flex-col items-center justify-center w-full m-2 p-2">
           <SearchBar/>

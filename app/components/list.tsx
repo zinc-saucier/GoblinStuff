@@ -5,10 +5,46 @@
 * add to cart
 * 
 */
+import { useState, useEffect } from "react";
+import Item from "./item";
+import { MagicItem } from "./item";
+
+
+type list = {
+    itemList: MagicItem[]
+}
+
+export default function List({itemList}:list) {
+  
+  const [hasList, setHasList] = useState(false);
+  useEffect(()=>{
+    if(itemList != null){
+      setHasList(true)
+    }
+    },[itemList])
 import MagicalItems from "../dnd-5e/magical-item";
 
-export default function List() {
     return(
+        <div>
+          <div>
+            {!hasList && <p></p>}
+          </div>
+          <div>
+            {hasList &&
+            <ul id="list of items">
+              {itemList.map((item, index) => (
+                <Item
+                  key={index}
+                  name={item.name}
+                  desc={item.desc}
+                  equipment_cat={item.equipment_cat}
+                  rarity={item.rarity.name}
+                  variant={item.variant.name}
+                />
+              ))}
+            </ul>}
+          </div>
+        </div>
         <div>A List of Things!
             <MagicalItems/>
         </div>
