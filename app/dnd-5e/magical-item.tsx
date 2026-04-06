@@ -1,5 +1,6 @@
 "use client"
-import { useState, useEffect, SetStateAction,} from "react"
+import { useState, useEffect, SetStateAction, } from "react";
+
 
 
 type itemThumb ={
@@ -63,9 +64,9 @@ export default function MagicalItems() {
     const [count,setCount] =useState<number>(0)
     const [thumb,setThumb] =useState<itemThumb[]>([])
 
-    useEffect(()=>{console.log()},[input])
+    useEffect(()=>{console.log()},[])
 
-    useEffect(()=>{fetchMagicItems(setCount,setThumb)})
+    useEffect(()=>{fetchMagicItems(setCount,setThumb)},[])
 
     const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);}
@@ -77,19 +78,28 @@ export default function MagicalItems() {
 
     // }
     const filter =() =>{
-        
+        let temp: itemThumb[] = [];
+        console.log(input);
+        for (let i = 0; i < count; i++) {
+            if(thumb[i].name.includes(input)){
+                temp=[ ...temp, thumb[i]];
+            }
+         }
+         console.log(temp);
+         setThumb(temp);
     }
     return(
         <div>
             <input 
             type = "text"
-            placeholder="Enter ingredient"
+            placeholder="Search by Name"
             className="border-black rounded-md p-2"
             value={input}
             onChange={onChangeText}
             />
              <button onClick={filter}>Search</button>
             <p>Results: {count}</p>
+            <div style={{ height: '600px', overflowY: 'auto', border: '1px solid #ccc' }}>
             {thumb.map((i:itemThumb, index:any)=>
             <div key={index}>
                 <div>
@@ -101,7 +111,7 @@ export default function MagicalItems() {
                     </li>
                 </div>
             </div>)}
-            
+            </div>
         </div>
     )
 
