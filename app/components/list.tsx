@@ -5,6 +5,7 @@
 * add to cart
 * 
 */
+import { useState, useEffect } from "react";
 import Item from "./item";
 import { MagicItem } from "./item";
 
@@ -13,21 +14,35 @@ type list = {
     itemList: MagicItem[]
 }
 
-export default function List() {
+export default function List({itemList}:list) {
+  
+  const [hasList, setHasList] = useState(false);
+  useEffect(()=>{
+    if(itemList != null){
+      setHasList(true)
+    }
+    },[itemList])
+
     return(
         <div>
-        <ul id="list of items">
-          {/* {itemList.map((item, id) => (
-            <Item
-              key={id}
-              name={item.name}
-              desc={item.quantity}
-              equipment_cat={item.category}
-              rarity={item.rarity.name}
-              variant={item.variant.name}
-            />
-          ))} */}
-        </ul>
+          <div>
+            {!hasList && <p></p>}
+          </div>
+          <div>
+            {hasList &&
+            <ul id="list of items">
+              {itemList.map((item, index) => (
+                <Item
+                  key={index}
+                  name={item.name}
+                  desc={item.desc}
+                  equipment_cat={item.equipment_cat}
+                  rarity={item.rarity.name}
+                  variant={item.variant.name}
+                />
+              ))}
+            </ul>}
+          </div>
         </div>
     );
 }
