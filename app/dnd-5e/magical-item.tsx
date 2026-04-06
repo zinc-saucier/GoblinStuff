@@ -31,7 +31,7 @@ type item={
 type itemList ={
     items: item[],
 }
-async function fetchMagicItems(setCount: { (value: SetStateAction<number>): void; (arg0: any): void },setThumb: { (value: SetStateAction<itemThumb[]>): void; (arg0: any): void }){
+async function fetchMagicItems(setCount: { (value: SetStateAction<number>): void; (arg0: any): void; }, setThumbMaster: { (value: SetStateAction<itemThumb[]>): void; (arg0: any): void; }, thumbMaster: itemThumb[]){
 
 let data:any;
 let itemList: item[] = [];
@@ -41,7 +41,8 @@ let itemList: item[] = [];
            const response = await fetch(`https://www.dnd5eapi.co/api/2014/magic-items/`);
         data = await response.json();
 
-        setThumb(data.results)
+        setThumbMaster(data.results)
+        console.log(thumbMaster)
         setCount(data.count)
     
         
@@ -50,23 +51,39 @@ let itemList: item[] = [];
             console.error("Error calling API", error);
         }
     };    
-console.log("its the list! ",itemList)
-    
     await callApi();
     return(true);
 };
 
+async function fetchIndividual(url:string) {
+    let data:any;
+    
+    const callApi = async () =>{
+        try{
+           const response = await fetch(`https://www.dnd5eapi.co${url}`);
+        data = await response.json();
 
+        let Item: item = data;
+        console.log("Item selected: ",Item)
+        
+        } catch (error) {
+            console.error("Error calling API", error);
+        }
+    };
+    await callApi();
+    return(true);
+}
 
 export default function MagicalItems() {
     const[items, setitems] = useState<any[]>([]);
-    const[input,setInput] = useState("")
-    const [count,setCount] =useState<number>(0)
-    const [thumb,setThumb] =useState<itemThumb[]>([])
+    const[input,setInput] = useState("");
+    const [count,setCount] =useState<number>(0);
+    const [thumb,setThumb] =useState<itemThumb[]>([]);
+    const [thumbMaster,setThumbMaster] = useState< itemThumb[]> ([]);
 
-    useEffect(()=>{console.log()},[])
+    useEffect(()=>{setThumb(thumbMaster)},[thumbMaster])
 
-    useEffect(()=>{fetchMagicItems(setCount,setThumb)},[])
+    useEffect(()=>{fetchMagicItems(setCount,setThumbMaster,thumbMaster)},[])
 
     const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);}
@@ -79,15 +96,30 @@ export default function MagicalItems() {
     // }
     const filter =() =>{
         let temp: itemThumb[] = [];
-        console.log(input);
-        for (let i = 0; i < count; i++) {
-            if(thumb[i].name.includes(input)){
-                temp=[ ...temp, thumb[i]];
+        let capitalized = input.charAt(0).toUpperCase() + input.slice(1)
+
+        if(input){
+            console.log(capitalized);
+            console.log(thumbMaster.length)
+            for (let i = 0; i < thumbMaster.length; i++) {
+                if(thumbMaster[i].name.includes(capitalized)){
+                    temp=[ ...temp, thumbMaster[i]];
+                    
+                }
             }
-         }
-         console.log(temp);
-         setThumb(temp);
+            setThumb(temp);
+            setCount(temp.length);
+        }
+        else{
+            setThumb(thumbMaster)
+            setCount(thumbMaster.length)
+        }
+
     }
+    const handleSelect = (url: string) => {
+        fetchIndividual(url);
+    }
+
     return(
         <div>
             <input 
@@ -101,10 +133,11 @@ export default function MagicalItems() {
             <p>Results: {count}</p>
             <div style={{ height: '600px', overflowY: 'auto', border: '1px solid #ccc' }}>
             {thumb.map((i:itemThumb, index:any)=>
+            
             <div key={index}>
                 <div>
                     
-                    <li className= "border p-2 rounded mb-2 mt-2">
+                    <li className= "border p-2 rounded mb-2 mt-2" onClick={() => handleSelect(i.url)}>
                         <p className = "font-medium">{`${i.name}`}</p> 
                         <p>{`url : ${i.url}`}</p>
                          
@@ -117,3 +150,7 @@ export default function MagicalItems() {
 
 
 };
+
+function capitalizer(input: string) {
+    throw new Error("Function not implemented.");
+}
