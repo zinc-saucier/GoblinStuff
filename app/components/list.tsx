@@ -8,7 +8,7 @@
 import { useState, useEffect } from "react";
 import Item from "./item";
 import { MagicItem } from "./item";
-
+import MagicalItems from "../dnd-5e/magical-item";
 
 type list = {
     itemList: MagicItem[]
@@ -27,29 +27,28 @@ export default function List({itemList}:list) {
     return(
       <div>
         <div>
-          {!hasList && <p></p>}
-        </div>
-        <div>
-          {hasList &&
-          <ul id="list of items">
-            {itemList.map((item, index) => (
-              <Item
-                key={index}
-                name={item.name}
-                desc={item.desc}
-                equipment_cat={item.equipment_cat}
-                rarity={{ name: `${item.rarity.name}` }} index={""} url={""} updated={""} image={""} api_ref={{
-                  index: `${item.api_ref.index}`,
-                  name: "",
-                  url: "",
-                  updated: ""
-                }} variant={false}                  
-              />
-            ))}
-          </ul>}
+          <div>
+            {!hasList && <p></p>}
+          </div>
+          <div>
+            {hasList &&
+            <ul id="list of items">
+              {itemList.map((item, index) => (
+                <Item
+                  key={index}
+                  name={item.name}
+                  desc={item.desc}
+                  equipment_cat={item.equipment_cat}
+                  rarity={item.rarity.name}
+                  variant={item.variant}
+                />
+              ))}
+            </ul>}
+          </div>
+        
+        <div>A List of Things!
+            <MagicalItems/>
         </div>
       </div>
-        
-        
     );
 }

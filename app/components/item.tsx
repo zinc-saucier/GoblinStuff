@@ -5,8 +5,8 @@
 * add to cart
 * 
 */
+"use client"
 import { useState } from "react";
-
 export type MagicItem = {
     index: string,
     name: string,
