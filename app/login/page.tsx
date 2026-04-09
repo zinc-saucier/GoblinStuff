@@ -1,13 +1,13 @@
 "use client";
 import { GoogleAuthProvider, signInWithPopup, AuthError } from "firebase/auth";
-//import { auth } from "@/util/firebase";
+import { auth } from "@/util/firebase";
 import { useRouter } from "next/navigation";
-//import { useUserStore } from "@/util/store";
-//import LoginForm from "@/components/Login";
+import { useUserStore } from "@/util/store";
+import LoginForm from "../components/login";
 
 export default function LoginPage() {
   const router = useRouter();
-  // const user = useUserStore((state) => state.user);
+  //const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
 
   const handleGoogleLogin = async (): Promise<void> => {
@@ -30,6 +30,4 @@ export default function LoginPage() {
   );
 }
 
-function useUserStore(arg0: (state: any) => any) {
-  throw new Error("Function not implemented.");
-}
+

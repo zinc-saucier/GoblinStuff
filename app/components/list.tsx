@@ -25,26 +25,30 @@ export default function List({itemList}:list) {
 
 
     return(
+      <div>
         <div>
-          <div>
-            {!hasList && <p></p>}
-          </div>
-          <div>
-            {hasList &&
-            <ul id="list of items">
-              {itemList.map((item, index) => (
-                <Item
-                  key={index}
-                  name={item.name}
-                  desc={item.desc}
-                  equipment_cat={item.equipment_cat}
-                  rarity={item.rarity.name}
-                  variant={item.variant.name}
-                />
-              ))}
-            </ul>}
-          </div>
+          {!hasList && <p></p>}
         </div>
+        <div>
+          {hasList &&
+          <ul id="list of items">
+            {itemList.map((item, index) => (
+              <Item
+                key={index}
+                name={item.name}
+                desc={item.desc}
+                equipment_cat={item.equipment_cat}
+                rarity={{ name: `${item.rarity.name}` }} index={""} url={""} updated={""} image={""} api_ref={{
+                  index: `${item.api_ref.index}`,
+                  name: "",
+                  url: "",
+                  updated: ""
+                }} variant={false}                  
+              />
+            ))}
+          </ul>}
+        </div>
+      </div>
         
         
     );

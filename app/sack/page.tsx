@@ -1,10 +1,11 @@
+"use client";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import MagicalItems from "../dnd-5e/magical-item";
 import Image from "next/image";
 import Item from "../components/item";
 
-export default function Home() {
+export default function Sack() {
   return (
     <main>
       <div>

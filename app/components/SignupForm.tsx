@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, FormEvent } from "react";
 import { createUserWithEmailAndPassword, AuthError } from "firebase/auth";
-//import { auth } from "@/util/firebase";
+import { auth } from "@/util/firebase";
 import { useRouter } from "next/navigation";
-//import { useUserStore } from "@/util/store";
+import { useUserStore } from "@/util/store";
 
 export default function SignUpForm() {
   const [email, setEmail] = useState<string>("");
