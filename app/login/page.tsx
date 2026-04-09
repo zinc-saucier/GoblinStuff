@@ -4,6 +4,8 @@ import { auth } from "@/util/firebase";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/util/store";
 import LoginForm from "../components/login";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -23,10 +25,21 @@ export default function LoginPage() {
   };
 
   return (
-    <main style={{ padding: "2rem" }}>
+    <main>
+          <div>
+          <Header/>
+        </div>
+    <div className="flex w-full justify-between py-32 px-16 bg-white dark:bg-black sm:items-start" style={{ padding: "2rem" }}>
       <LoginForm />
+      <div>
       <button onClick={handleGoogleLogin}>Sign in with Google</button>
-    </main>
+      </div>
+    </div>
+    <div>
+          
+          <Footer/>
+        </div>
+        </main>
   );
 }
 

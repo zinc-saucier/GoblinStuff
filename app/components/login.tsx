@@ -47,7 +47,7 @@ export default function LoginForm() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 border rounded text-black"
+            className="w-full p-2 border rounded text-light-grey"
             required
           />
         </div>
@@ -57,7 +57,7 @@ export default function LoginForm() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 border rounded text-black"
+            className="w-full p-2 border rounded text-light-grey"
             required
           />
         </div>
@@ -67,7 +67,7 @@ export default function LoginForm() {
         <button
           type="submit"
           disabled={loading}
-          className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 disabled:bg-gray-400"
+          className="bg-blue-600 text-white py-2 border rounded hover:bg-blue-700 disabled:bg-gray-400"
         >
           {loading ? "Logging in..." : "Login"}
         </button>
