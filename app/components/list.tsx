@@ -25,6 +25,7 @@ export default function List({itemList}:list) {
 
 
     return(
+      <div>
         <div>
           <div>
             {!hasList && <p></p>}

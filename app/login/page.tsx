@@ -1,13 +1,15 @@
 "use client";
 import { GoogleAuthProvider, signInWithPopup, AuthError } from "firebase/auth";
-//import { auth } from "@/util/firebase";
+import { auth } from "@/util/firebase";
 import { useRouter } from "next/navigation";
-//import { useUserStore } from "@/util/store";
-//import LoginForm from "@/components/Login";
+import { useUserStore } from "@/util/store";
+import LoginForm from "../components/login";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 export default function LoginPage() {
   const router = useRouter();
-  // const user = useUserStore((state) => state.user);
+  //const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
 
   const handleGoogleLogin = async (): Promise<void> => {
@@ -23,13 +25,22 @@ export default function LoginPage() {
   };
 
   return (
-    <main style={{ padding: "2rem" }}>
+    <main>
+          <div>
+          <Header/>
+        </div>
+    <div className="flex w-full justify-between py-32 px-16 bg-white dark:bg-black sm:items-start" style={{ padding: "2rem" }}>
       <LoginForm />
+      <div>
       <button onClick={handleGoogleLogin}>Sign in with Google</button>
-    </main>
+      </div>
+    </div>
+    <div>
+          
+          <Footer/>
+        </div>
+        </main>
   );
 }
 
-function useUserStore(arg0: (state: any) => any) {
-  throw new Error("Function not implemented.");
-}
+

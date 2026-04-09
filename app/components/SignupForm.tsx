@@ -1,9 +1,11 @@
 "use client";
 import React, { useState, FormEvent } from "react";
 import { createUserWithEmailAndPassword, AuthError } from "firebase/auth";
-//import { auth } from "@/util/firebase";
+import { auth } from "@/util/firebase";
 import { useRouter } from "next/navigation";
-//import { useUserStore } from "@/util/store";
+import { useUserStore } from "@/util/store";
+import Header from "./header";
+import Footer from "./footer";
 
 export default function SignUpForm() {
   const [email, setEmail] = useState<string>("");
@@ -60,8 +62,13 @@ export default function SignUpForm() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 border rounded-lg shadow-sm bg-white">
-      <h2 className="text-2xl font-bold mb-4 text-black">Create Account</h2>
+    <main>
+      <div>
+            <Header/>
+      </div>
+      <main className="flex min-h-screen w-full flex-3 flex-row justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <div >
+      <h2 className="text-2xl font-bold mb-4 text-white">Create Account</h2>
       <form onSubmit={handleSignUp} className="flex flex-col gap-4">
         <div>
           <label className="block mb-1 text-gray-700">Email</label>
@@ -106,5 +113,11 @@ export default function SignUpForm() {
         </button>
       </form>
     </div>
+    </main>
+    <div>
+          
+          <Footer/>
+        </div>
+        </main>
   );
 }

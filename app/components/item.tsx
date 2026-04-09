@@ -76,7 +76,7 @@ export default function Item(item: MagicItem) {
                 <p className="text-lg">Description: {item.desc}</p>
                 <p className="text-lg">Category: {item.equipment_cat}</p>
                 <p className="text-lg">Rarity: {item.rarity ? item.rarity.name: "Varies"}</p>
-                <p className="text-lg" onClick={() => handleVariant(item.variants ?item.variants.name : "no variant")}>Variant: {item.variants ? item.variants.name : "none" }</p>
+                {/* <p className="text-lg" onClick={() => handleVariant(item.variants ?item.variants.name : "no variant")}>Variant: {item.variants ? item.variants.name : "none" }</p> */}
                 <p className="text-lg text-orange-400" onClick={()=> handleSelect(item.name)}>Add to list</p>
             </li>}
             </div>
