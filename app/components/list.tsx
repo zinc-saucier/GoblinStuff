@@ -8,7 +8,7 @@
 import { useState, useEffect } from "react";
 import Item from "./item";
 import { MagicItem } from "./item";
-
+import MagicalItems from "../dnd-5e/magical-item";
 
 type list = {
     itemList: MagicItem[]
@@ -22,7 +22,7 @@ export default function List({itemList}:list) {
       setHasList(true)
     }
     },[itemList])
-import MagicalItems from "../dnd-5e/magical-item";
+
 
     return(
         <div>
@@ -39,15 +39,15 @@ import MagicalItems from "../dnd-5e/magical-item";
                   desc={item.desc}
                   equipment_cat={item.equipment_cat}
                   rarity={item.rarity.name}
-                  variant={item.variant.name}
+                  variant={item.variant}
                 />
               ))}
             </ul>}
           </div>
-        </div>
+        
         <div>A List of Things!
             <MagicalItems/>
         </div>
-        
+      </div>
     );
 }

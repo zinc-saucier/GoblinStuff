@@ -1,5 +1,6 @@
 "use client"
-import { useState, useEffect, SetStateAction, } from "react";
+import { useState, useEffect, SetStateAction, Dispatch, } from "react";
+import{ MagicItem } from "../components/item";
 
 
 
@@ -9,32 +10,14 @@ type itemThumb ={
     url:string
 }
 // if you can, figure out how to api querie for each thumb and get the image back for the thumb display.
-type item={
-    index: string,
-    name: string,
-    equipment_category:{
-        index:string 
-        name: string
-        url: string
-    },
-    rarity:{
-        name: string
-    },
-    variants: [],
-    variant: boolean,
-    desc: [],
-    image: string,
-    url:string, 
-    Updated_at: string,
 
-}
-type itemList ={
-    items: item[],
+type selected={
+    setItem: (item:MagicItem)=>any
 }
 async function fetchMagicItems(setCount: { (value: SetStateAction<number>): void; (arg0: any): void; }, setThumbMaster: { (value: SetStateAction<itemThumb[]>): void; (arg0: any): void; }, thumbMaster: itemThumb[]){
 
 let data:any;
-let itemList: item[] = [];
+let itemList: MagicItem[] = [];
 
     const callApi = async () =>{
         try{
@@ -55,35 +38,58 @@ let itemList: item[] = [];
     return(true);
 };
 
-async function fetchIndividual(url:string) {
+async function fetchIndividual(url:string,setItem: ((arg0: any) => void)) {
     let data:any;
-    
+    let item: MagicItem = data;
     const callApi = async () =>{
         try{
            const response = await fetch(`https://www.dnd5eapi.co${url}`);
         data = await response.json();
 
-        let Item: item = data;
-        console.log("Item selected: ",Item)
-        
+        let item: MagicItem = data;
+        console.log("Item selected: ",item)
+        setItem(data);
         } catch (error) {
             console.error("Error calling API", error);
         }
     };
     await callApi();
-    return(true);
+    return(item);
+}
+async function fetchAll(setItemMaster: Dispatch<SetStateAction<MagicItem[]>>, thumbMaster: itemThumb[]) {
+    let data:any;
+    let temp:MagicItem[] = [];
+    const callApi = async (url:string) =>{
+        try{
+           const response = await fetch(`https://www.dnd5eapi.co${url}`);
+        data = await response.json();
+        let item: MagicItem = data;
+        console.log(item)
+        temp.push(item);
+
+        } catch (error) {
+            console.error("Error calling API", error);
+        }
+    };
+    for(let i=0; i<thumbMaster.length ;i++ ){
+        await callApi(thumbMaster[i].url);
+    }
+    setItemMaster(temp);
+    console.log("item Master ", temp);
 }
 
-export default function MagicalItems() {
-    const[items, setitems] = useState<any[]>([]);
+export default function MagicalItems({setItem}:selected) {
     const[input,setInput] = useState("");
     const [count,setCount] =useState<number>(0);
     const [thumb,setThumb] =useState<itemThumb[]>([]);
     const [thumbMaster,setThumbMaster] = useState< itemThumb[]> ([]);
+    const [itemMaster,setItemMaster] = useState<MagicItem[]> ([]);
 
     useEffect(()=>{setThumb(thumbMaster)},[thumbMaster])
 
     useEffect(()=>{fetchMagicItems(setCount,setThumbMaster,thumbMaster)},[])
+
+    useEffect(()=>{fetchAll(setItemMaster,thumbMaster)},[thumbMaster])
 
     const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);}
@@ -96,19 +102,19 @@ export default function MagicalItems() {
     // }
     const filter =() =>{
         let temp: itemThumb[] = [];
-        let capitalized = input.charAt(0).toUpperCase() + input.slice(1)
 
         if(input){
-            console.log(capitalized);
+            
             console.log(thumbMaster.length)
             for (let i = 0; i < thumbMaster.length; i++) {
-                if(thumbMaster[i].name.includes(capitalized)){
+                if(thumbMaster[i].name.toLowerCase().includes(input.toLowerCase())){
                     temp=[ ...temp, thumbMaster[i]];
                     
                 }
             }
             setThumb(temp);
             setCount(temp.length);
+            setInput("")
         }
         else{
             setThumb(thumbMaster)
@@ -116,9 +122,10 @@ export default function MagicalItems() {
         }
 
     }
-    const handleSelect = (url: string) => {
-        fetchIndividual(url);
+    const handleSelect = async (url: string) => {
+        fetchIndividual(url,setItem);
     }
+   
 
     return(
         <div>
@@ -128,6 +135,7 @@ export default function MagicalItems() {
             className="border-black rounded-md p-2"
             value={input}
             onChange={onChangeText}
+            
             />
              <button onClick={filter}>Search</button>
             <p>Results: {count}</p>
@@ -151,6 +159,4 @@ export default function MagicalItems() {
 
 };
 
-function capitalizer(input: string) {
-    throw new Error("Function not implemented.");
-}
+
