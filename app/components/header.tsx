@@ -1,9 +1,10 @@
+"use client";
 import Image from "next/image";
 import { useState } from "react";
 import NavBar from "./navBar";
 import DisplayUserDetails from "./userdetails";
 import Link from "next/link";
-import SearchBar from "./search";
+
 
 export default function Header() {
   const [user, setUser] = useState("");
