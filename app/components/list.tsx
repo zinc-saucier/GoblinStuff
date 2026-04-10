@@ -45,10 +45,7 @@ export default function List({itemList}:list) {
               ))}
             </ul>}
           </div>
-        
-        <div>A List of Things!
-            <MagicalItems/>
-        </div>
+      </div>
       </div>
     );
 }

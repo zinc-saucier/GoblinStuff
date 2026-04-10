@@ -29,7 +29,7 @@ let itemList: MagicItem[] = [];
         setCount(data.count)
     
         
-        console.log("API Response: ", data)
+        
         } catch (error) {
             console.error("Error calling API", error);
         }
@@ -64,8 +64,8 @@ async function fetchAll(setItemMaster: Dispatch<SetStateAction<MagicItem[]>>, th
            const response = await fetch(`https://www.dnd5eapi.co${url}`);
         data = await response.json();
         let item: MagicItem = data;
-        console.log(item)
-        temp.push(item);
+        
+        temp.push(data);
 
         } catch (error) {
             console.error("Error calling API", error);
@@ -76,6 +76,7 @@ async function fetchAll(setItemMaster: Dispatch<SetStateAction<MagicItem[]>>, th
     }
     setItemMaster(temp);
     console.log("item Master ", temp);
+    
 }
 
 export default function MagicalItems({setItem}:selected) {
