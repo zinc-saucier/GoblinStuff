@@ -1,11 +1,9 @@
 "use client";
-import React, { useState, FormEvent } from "react";
+import { useState, SubmitEvent } from "react";
 import { createUserWithEmailAndPassword, AuthError } from "firebase/auth";
 import { auth } from "@/util/firebase";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/util/store";
-import Header from "./header";
-import Footer from "./footer";
 
 export default function SignUpForm() {
   const [email, setEmail] = useState<string>("");
@@ -18,7 +16,7 @@ export default function SignUpForm() {
 
   const setUser = useUserStore((state) => state.setUser);
 
-  const handleSignUp = async (e: FormEvent) => {
+  const handleSignUp = async (e: SubmitEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -31,11 +29,13 @@ export default function SignUpForm() {
     }
 
     try {
+      
       const result = await createUserWithEmailAndPassword(
         auth,
         email,
         password,
       );
+      
       console.log("User created:", result.user);
       setUser(result.user.displayName || result.user.email || "Unknown User");
       router.push("/");
@@ -56,48 +56,45 @@ export default function SignUpForm() {
         default:
           setError("Failed to create an account. Please try again.");
       }
+    
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <main>
-      <div>
-            <Header/>
-      </div>
-      <main className="flex min-h-screen w-full flex-3 flex-row justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-    <div >
+    
+    <div className="bg-black">
       <h2 className="text-2xl font-bold mb-4 text-white">Create Account</h2>
       <form onSubmit={handleSignUp} className="flex flex-col gap-4">
         <div>
-          <label className="block mb-1 text-gray-700">Email</label>
+          <label className="block mb-1 text-white">Email</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 border rounded text-black outline-blue-500"
+            className="w-full p-2 border rounded text-white outline-blue-500"
             placeholder="you@example.com"
             required
           />
         </div>
         <div>
-          <label className="block mb-1 text-gray-700">Password</label>
+          <label className="block mb-1 text-white">Password</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 border rounded text-black outline-blue-500"
+            className="w-full p-2 border rounded text-white outline-blue-500"
             required
           />
         </div>
         <div>
-          <label className="block mb-1 text-gray-700">Confirm Password</label>
+          <label className="block mb-1 text-white">Confirm Password</label>
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full p-2 border rounded text-black outline-blue-500"
+            className="w-full p-2 border rounded text- outline-blue-500"
             required
           />
         </div>
@@ -113,11 +110,6 @@ export default function SignUpForm() {
         </button>
       </form>
     </div>
-    </main>
-    <div>
-          
-          <Footer/>
-        </div>
-        </main>
+    
   );
 }

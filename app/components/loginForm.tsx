@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, FormEvent } from "react";
+import React, { useState, SubmitEvent } from "react";
 import { signInWithEmailAndPassword, AuthError } from "firebase/auth";
 import { auth } from "@/util/firebase";
 import { useRouter } from "next/navigation";
@@ -15,7 +15,7 @@ export default function LoginForm() {
 
   const setUser = useUserStore((state) => state.setUser);
 
-  const handleLogin = async (e: FormEvent) => {
+  const handleLogin = async (e: SubmitEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
