@@ -25,7 +25,7 @@ export default function List({itemList}:list) {
 
 
     return(
-      <div>
+      
         <div>
           <div>
             {!hasList && <p></p>}
@@ -39,15 +39,21 @@ export default function List({itemList}:list) {
                   name={item.name}
                   desc={item.desc}
                   equipment_cat={item.equipment_cat}
-                  rarity={item.rarity.name}
-                  variant={item.variant}
-                />
+                  rarity={item.rarity}
+                  variant={item.variant} index={""} url={""} updated={""} image={""} api_ref={{
+                    index: "",
+                    name: "",
+                    url: "",
+                    updated: ""
+                  }}                />
               ))}
             </ul>}
           </div>
         
         <div>A List of Things!
-            <MagicalItems/>
+            <MagicalItems setItem={function (item: MagicItem) {
+              throw new Error("Function not implemented.");
+            } }/>
         </div>
       </div>
     );

@@ -3,7 +3,7 @@ import { GoogleAuthProvider, signInWithPopup, AuthError } from "firebase/auth";
 import { auth } from "@/util/firebase";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/util/store";
-import LoginForm from "../components/login";
+import LoginForm from "../components/loginForm";
 import Header from "../components/header";
 import Footer from "../components/footer";
 
@@ -29,12 +29,16 @@ export default function LoginPage() {
           <div>
           <Header/>
         </div>
-    <div className="flex w-full justify-between py-32 px-16 bg-white dark:bg-black sm:items-start" style={{ padding: "2rem" }}>
-      <LoginForm />
+    <main className="flex w-full flex-3 flex-row justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+      <div className="flex w-full flex-col items-center justify-center py-32 px-16 bg-black">
       <div>
+      <LoginForm />
+      </div>
+      <div className="">
       <button onClick={handleGoogleLogin}>Sign in with Google</button>
       </div>
-    </div>
+      </div>
+    </main>
     <div>
           
           <Footer/>
