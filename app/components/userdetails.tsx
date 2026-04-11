@@ -3,6 +3,8 @@ type DisplayUserDetailsProps = {
   capitalizer?: (str: string) => string;
 };
 
+
+
 const DisplayUserDetails = ({
   name,
   capitalizer,

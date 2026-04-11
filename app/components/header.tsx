@@ -2,12 +2,19 @@
 import Image from "next/image";
 import { useState } from "react";
 import NavBar from "./navBar";
+import { useUserStore } from "@/util/store";
 import DisplayUserDetails from "./userdetails";
 import Link from "next/link";
+import { useAuth } from "@/util/AuthProvider";
+
 
 
 export default function Header() {
-  const [user, setUser] = useState("");
+
+    
+
+  const user = useUserStore((state) => state.user);
+  //const [user, setUser] = useState("");
   const [isLoggedin, setIsLoggedIn] = useState(false)
   return (
     <div>
@@ -22,7 +29,7 @@ export default function Header() {
             />}
           </div>
           <div>
-            {!isLoggedin && <p><Link href="/login">Login/test</Link></p>}
+            {!isLoggedin && <p><Link href="/login">Login</Link></p>}
             </div>
           </div>
           <div>

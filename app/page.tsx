@@ -6,8 +6,12 @@ import Footer from "./components/footer";
 import Item from "./components/item";
 import List from "./components/list";
 import SearchBar from "./components/search";
+import { useUserStore } from "@/util/store";
+
 
 export default function Home() {
+
+
   return (
     <main>
       <div>

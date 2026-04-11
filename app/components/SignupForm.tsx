@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, SubmitEvent } from "react";
+import { useState, SubmitEvent } from "react";
 import { createUserWithEmailAndPassword, AuthError } from "firebase/auth";
 import { auth } from "@/util/firebase";
 import { useRouter } from "next/navigation";
@@ -35,6 +35,7 @@ export default function SignUpForm() {
         email,
         password,
       );
+      
       console.log("User created:", result.user);
       setUser(result.user.displayName || result.user.email || "Unknown User");
       router.push("/");
