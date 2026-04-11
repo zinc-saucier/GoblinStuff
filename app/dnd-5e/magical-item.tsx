@@ -47,7 +47,7 @@ async function fetchIndividual(url:string,setItem: ((arg0: any) => void)) {
         data = await response.json();
 
         let item: MagicItem = data;
-        console.log("Item selected: ",item)
+        
         setItem(data);
         } catch (error) {
             console.error("Error calling API", error);
@@ -56,41 +56,16 @@ async function fetchIndividual(url:string,setItem: ((arg0: any) => void)) {
     await callApi();
     return(item);
 }
-async function fetchAll(setItemMaster: Dispatch<SetStateAction<MagicItem[]>>, thumbMaster: itemThumb[]) {
-    let data:any;
-    let temp:MagicItem[] = [];
-    const callApi = async (url:string) =>{
-        try{
-           const response = await fetch(`https://www.dnd5eapi.co${url}`);
-        data = await response.json();
-        let item: MagicItem = data;
-        
-        temp.push(data);
-
-        } catch (error) {
-            console.error("Error calling API", error);
-        }
-    };
-    for(let i=0; i<thumbMaster.length ;i++ ){
-        await callApi(thumbMaster[i].url);
-    }
-    setItemMaster(temp);
-    console.log("item Master ", temp);
-    
-}
 
 export default function MagicalItems({setItem}:selected) {
     const[input,setInput] = useState("");
     const [count,setCount] =useState<number>(0);
     const [thumb,setThumb] =useState<itemThumb[]>([]);
     const [thumbMaster,setThumbMaster] = useState< itemThumb[]> ([]);
-    const [itemMaster,setItemMaster] = useState<MagicItem[]> ([]);
 
     useEffect(()=>{setThumb(thumbMaster)},[thumbMaster])
 
     useEffect(()=>{fetchMagicItems(setCount,setThumbMaster,thumbMaster)},[])
-
-    useEffect(()=>{fetchAll(setItemMaster,thumbMaster)},[thumbMaster])
 
     const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);}
@@ -148,7 +123,7 @@ export default function MagicalItems({setItem}:selected) {
                     
                     <li className= "border p-2 rounded mb-2 mt-2" onClick={() => handleSelect(i.url)}>
                         <p className = "font-medium">{`${i.name}`}</p> 
-                        <p>{`url : ${i.url}`}</p>
+                        
                          
                     </li>
                 </div>

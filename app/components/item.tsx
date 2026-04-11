@@ -6,7 +6,8 @@
 * 
 */
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 export type MagicItem = {
     index: string,
     name: string,
@@ -14,7 +15,11 @@ export type MagicItem = {
     updated: string,
     desc: string,
     image: string,
-    equipment_cat: string,
+    equipment_category: {
+        index: string,
+        name: string,
+        url: string,
+    },
     api_ref: {
         index: string,
         name: string,
@@ -35,31 +40,20 @@ export type MagicItem = {
 export default function Item(item: MagicItem) {
     const [hasItem, setHasItem] = useState(false)
 
-    let itemList = [];
-    const handleSelect = (name: string) => {
-        console.log("item: ", { item }, "added to list")
-        itemList.push(
-            <Item
-                key={name}
-                index={item.index}
-                name={item.name}
-                url={""}
-                updated={""}
-                desc={item.desc}
-                image={""}
-                equipment_cat={item.equipment_cat}
-                api_ref={{
-                    index: `${item.api_ref.index}`,
-                    name: `${item.api_ref.name}`,
-                    url: `${item.api_ref.url}`,
-                    updated: `${item.api_ref.updated}`
-                }}
-                rarity={{ name: `${item.rarity.name}` }}
-                variant={item.variant} 
-                />
-        )
+    useEffect(()=>{
+        if(item!=null){
+            setHasItem(true);
+        }
+    },[item])
+
+    let itemList:MagicItem[] = [];
+
+    const handleSelect = (item:MagicItem) => {
+        console.log("item: ", { item }, "added to list");
+        itemList.push(item);
+        console.log(itemList);
     }
-    const handleVariant = (name: string) => {
+    const handleVariant = (item: MagicItem) => {
 
     }
 
@@ -69,15 +63,21 @@ export default function Item(item: MagicItem) {
             {!hasItem && <p></p>}
             </div>
             <div>{hasItem &&
-            <li key={item.name} className="place-items-left">
-                <img src={item.image ? item.image : "no image"} height={200} width={200}/>   
-                <p className="text-xl text-orange-400">Item: {item.name}</p>
-                
-                <p className="text-lg">Description: {item.desc}</p>
-                <p className="text-lg">Category: {item.equipment_cat}</p>
-                <p className="text-lg">Rarity: {item.rarity ? item.rarity.name: "Varies"}</p>
+            <li key={item.name}>
+                <h2 className="text-2xl text-orange-400 text-center" >{item.name}</h2>
+                <img src={ `https://www.dnd5eapi.co${item.image}`} height={250} width={250} alt="No image available" className="ml-61 border-2 border-black"/>
+                <div className="flex justify-between flex-row flex-wrap mb-3">
+               
+                    <p className="text-x1 text-orange-400 "> Type: {item.desc[0]} </p> 
+                </div>
+                <p className="mb-3">Description: {item.desc[1]}</p>
+
+                <p className="mb-3">Category: {item.equipment_category.name}</p>
+                <p className="mb-3">Rarity: {item.rarity ? item.rarity.name: "Varies"}</p>
                 {/* <p className="text-lg" onClick={() => handleVariant(item.variants ?item.variants.name : "no variant")}>Variant: {item.variants ? item.variants.name : "none" }</p> */}
-                <p className="text-lg text-orange-400" onClick={()=> handleSelect(item.name)}>Add to list</p>
+                <button onClick={()=> handleSelect(item)} className="border-2 border-orange-300 text-orange-300 p-3 rounded-full">
+                Add to list
+                </button>
             </li>}
             </div>
         </div>
