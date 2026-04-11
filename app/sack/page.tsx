@@ -8,18 +8,18 @@ import Item from "../components/item";
 
 export default function catalogue() {
 const[item, setitem] = useState<MagicItem>();
-useEffect(()=>{console.log("passed item ", item)},[item])
+
     return(
         <div>
             <Header/>
             {/* body */}
 
-            <div> 
-                <div>
+            <div className="grid grid-flow-col grid-cols-2 gap-10 border-b-4 justify-center ml-2 mr-2"> 
+                <div className="col-start-1">
                     <MagicalItems setItem ={setitem}/>
                 </div>
-                <div>
-                  <Item item ={item}/>
+                <div className="col-start-2 justify-center mt-17">
+                  {item? <Item {...item!} /> : <div></div>}
                 </div>
             </div>
 
