@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import Item from "./item";
 import { MagicItem } from "./item";
 import MagicalItems from "../dnd-5e/magical-item";
+import { getCart, removeFromCart } from "@/service/firebase_crud";
 
 type list = {
     itemList: MagicItem[]
@@ -38,9 +39,14 @@ export default function List({itemList}:list) {
                   key={index}
                   name={item.name}
                   desc={item.desc}
-                  equipment_cat={item.equipment_cat}
+                  equipment_category={item.equipment_category}
                   rarity={item.rarity}
-                  variant={item.variant} index={""} url={""} updated={""} image={""} api_ref={{
+                  variant={item.variant} 
+                  index={""} 
+                  url={""} 
+                  updated={""} 
+                  image={""} 
+                  api_ref={{
                     index: "",
                     name: "",
                     url: "",

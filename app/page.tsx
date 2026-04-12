@@ -6,10 +6,21 @@ import Footer from "./components/footer";
 import Item from "./components/item";
 import List from "./components/list";
 import SearchBar from "./components/search";
-import { useUserStore } from "@/util/store";
+import { createUser } from "@/service/firebase_crud";
+import {auth} from "@/util/firebase"
+
 
 
 export default function Home() {
+
+  // const createUserData = async () => {
+  //   createUser({
+  //       User_ID: `${auth.currentUser?.uid}`,
+  //       user_email: `${auth.currentUser?.email}`,
+  //       user_name: `${auth.currentUser?.displayName}`,
+  //     })
+    
+  // }
 
 
   return (
@@ -20,6 +31,7 @@ export default function Home() {
     <main className="flex min-h-screen w-full flex-3 flex-row justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
       <div className="flex flex-3 w-full flex-row justify-evenly">
         <div>
+          {/* <button onClick={createUserData}>click to make user data</button> */}
           {/* <Item index={""} name={""} url={""} updated={""} desc={""} image={""} equipment_cat={""} api_ref={{
               index: "",
               name: "",

@@ -6,8 +6,12 @@ import Footer from "../components/footer";
 import Item from "../components/item";
 import List from "../components/list";
 import SearchBar from "../components/search";
+import { getCart, removeFromCart } from "@/service/firebase_crud";
+import {auth} from "@/util/firebase"
 
 export default function Home() {
+  
+
   return (
     <main>
       <div>
@@ -16,7 +20,7 @@ export default function Home() {
     <main className="flex min-h-screen w-full flex-3 flex-row justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
       <div className="flex flex-3 w-full flex-row justify-evenly">
         <div>
-          cart test
+          <List itemList={[]}/>
         </div>
         <div className="flex flex-col items-center justify-center w-full m-2 p-2">
           <SearchBar/>

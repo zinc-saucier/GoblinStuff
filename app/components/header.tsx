@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavBar from "./navBar";
 import { useUserStore } from "@/util/store";
 import DisplayUserDetails from "./userdetails";
@@ -11,12 +11,25 @@ import { useAuth } from "@/util/AuthProvider";
 
 export default function Header() {
 
-    
-
   const user = useUserStore((state) => state.user);
-  //const [user, setUser] = useState("");
+  const setUser = useUserStore((state) => state.setUser);
   const [isLoggedin, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    if (user) {
+      setIsLoggedIn(true);
+    } else {
+    }
+  }, [user]);  
+
+  const signOut = async () => {
+    setUser("","");
+    setIsLoggedIn(false);
+  };
+  
   return (
+
+
     <div>
       
       <header className="flex flex-row items-center justify-center w-full">
@@ -30,12 +43,15 @@ export default function Header() {
           </div>
           <div>
             {!isLoggedin && <p><Link href="/login">Login</Link></p>}
-            </div>
+            {isLoggedin && <p><Link href="/account">Account</Link></p>}
+            
           </div>
           <div>
-            {isLoggedin && <p><Link href="/account">Account</Link></p>}
+            {!isLoggedin && <p ></p>}
+            {isLoggedin && <p onClick={signOut}>Sign Out</p>}
           </div>
         </div>
+      </div>
       <div className="text-2xl"> 
         <NavBar/>
       </div>

@@ -7,6 +7,9 @@
 */
 "use client"
 import { useEffect, useState } from "react";
+import * as CRUD from "@/service/firebase_crud";
+import { useUserStore } from "@/util/store";
+import {auth} from "@/util/firebase"
 
 export type MagicItem = {
     index: string,
@@ -35,11 +38,13 @@ export type MagicItem = {
         updated: string,
     }]
     variant: boolean
-};
+}
+
 
 export default function Item(item: MagicItem) {
-    const [hasItem, setHasItem] = useState(false)
 
+    const [hasItem, setHasItem] = useState(false)
+   
     useEffect(()=>{
         if(item!=null){
             setHasItem(true);
@@ -50,12 +55,14 @@ export default function Item(item: MagicItem) {
 
     const handleSelect = (item:MagicItem) => {
         console.log("item: ", { item }, "added to list");
-        itemList.push(item);
+        CRUD.addToCart(`${auth.currentUser?.uid}`, item)
+           
+        console.log("user:", `${auth.currentUser?.displayName}`)
         console.log(itemList);
     }
-    const handleVariant = (item: MagicItem) => {
+    // const handleVariant = (item: MagicItem) => {
 
-    }
+    // }
 
     return(
         <div>

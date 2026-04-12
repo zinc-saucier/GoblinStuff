@@ -22,7 +22,9 @@ export default function LoginForm() {
 
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
-      setUser(result.user.displayName || result.user.email || "Unknown User");
+      setUser(result.user.displayName || result.user.email || "Unknown User", result.user.uid);
+      console.log(result.user)
+      
       router.push("/"); // Redirect on success
     } catch (err) {
       const authError = err as AuthError;
