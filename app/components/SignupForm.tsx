@@ -1,11 +1,13 @@
 "use client";
 import { useState, SubmitEvent } from "react";
-import { createUserWithEmailAndPassword, AuthError } from "firebase/auth";
+import { createUserWithEmailAndPassword, AuthError, updateProfile } from "firebase/auth";
 import { auth } from "@/util/firebase";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/util/store";
+import { createUser, getCart } from "@/service/firebase_crud";
 
 export default function SignUpForm() {
+  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -15,6 +17,12 @@ export default function SignUpForm() {
   const router = useRouter();
 
   const setUser = useUserStore((state) => state.setUser);
+
+  const createUserData = async () => createUser({
+        User_ID: `${auth.currentUser?.uid}`,
+        user_email: `${auth.currentUser?.email}`,
+        user_name: `${name}`,
+      })
 
   const handleSignUp = async (e: SubmitEvent) => {
     e.preventDefault();
@@ -35,9 +43,14 @@ export default function SignUpForm() {
         email,
         password,
       );
-      
+      if(result.user){
+        updateProfile(result.user, {displayName: name})
+               
+      }
+      const cartItems = await getCart(`${result.user?.uid}`);
       console.log("User created:", result.user);
-      setUser(result.user.displayName || result.user.email || "Unknown User");
+      setUser(result.user.displayName || result.user.email || "Unknown User", result.user.uid, cartItems || null);  
+      
       router.push("/");
     } catch (err) {
       const authError = err as AuthError;
@@ -58,6 +71,11 @@ export default function SignUpForm() {
       }
     
     } finally {
+      createUserData();
+      
+      if(auth.currentUser) {
+        console.log("user added:", auth.currentUser.displayName)
+      }
       setLoading(false);
     }
   };
@@ -67,6 +85,17 @@ export default function SignUpForm() {
     <div className="bg-black">
       <h2 className="text-2xl font-bold mb-4 text-white">Create Account</h2>
       <form onSubmit={handleSignUp} className="flex flex-col gap-4">
+        <div>
+          <label className="block mb-1 text-white">User Name</label>
+          <input
+            type="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full p-2 border rounded text-white outline-blue-500"
+            placeholder="what should we call you?"
+            required
+          />
+        </div>
         <div>
           <label className="block mb-1 text-white">Email</label>
           <input

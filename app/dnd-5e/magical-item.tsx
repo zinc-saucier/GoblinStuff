@@ -105,29 +105,33 @@ export default function MagicalItems({setItem}:selected) {
 
     return(
         <div>
-            <input 
-            type = "text"
-            placeholder="Search by Name"
-            className="border-black rounded-md p-2"
-            value={input}
-            onChange={onChangeText}
+            <div>
+                <input 
+                type = "text"
+                placeholder="Search by Name"
+                className=" border-2 border-gray-400 dark:border-white rounded-md p-2"
+                value={input}
+                onChange={onChangeText}
+                
+                />
+                <button onClick={filter} className="">Search</button>
+            </div>
+            <div>
+                <p>Results: {count}</p>
+                <div style={{ height: '600px', overflowY: 'auto', border: '1px solid #ccc' }}>
+                {thumb.map((i:itemThumb, index:any)=>
             
-            />
-             <button onClick={filter}>Search</button>
-            <p>Results: {count}</p>
-            <div style={{ height: '600px', overflowY: 'auto', border: '1px solid #ccc' }}>
-            {thumb.map((i:itemThumb, index:any)=>
-            
-            <div key={index}>
-                <div>
-                    
-                    <li className= "border p-2 rounded mb-2 mt-2" onClick={() => handleSelect(i.url)}>
-                        <p className = "font-medium">{`${i.name}`}</p> 
-                        
-                         
-                    </li>
+                    <div key={index}>
+                        <div>
+                            
+                            <li className= "border p-2 rounded mb-2 mt-2" onClick={() => handleSelect(i.url)}>
+                                <p className = "font-medium">{`${i.name}`}</p> 
+                                
+                                
+                            </li>
+                        </div>
+                    </div>)}
                 </div>
-            </div>)}
             </div>
         </div>
     )
