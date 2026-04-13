@@ -5,7 +5,7 @@ import NavBar from "./navBar";
 import { useUserStore } from "@/util/store";
 import DisplayUserDetails from "./userdetails";
 import Link from "next/link";
-import { useAuth } from "@/util/AuthProvider";
+
 
 
 
@@ -23,7 +23,7 @@ export default function Header() {
   }, [user]);  
 
   const signOut = async () => {
-    setUser("","");
+    setUser("","",[]);
     setIsLoggedIn(false);
   };
   

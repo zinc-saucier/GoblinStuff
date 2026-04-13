@@ -12,17 +12,17 @@ export default function LoginPage() {
   //const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
 
-  const handleGoogleLogin = async (): Promise<void> => {
-    const provider = new GoogleAuthProvider();
-    try {
-      const result = await signInWithPopup(auth, provider);
-      setUser(result.user.displayName || result.user.email || "Unknown User");
-      router.push("/");
-    } catch (error) {
-      const authError = error as AuthError;
-      console.error("Login Error:", authError.message);
-    }
-  };
+  // const handleGoogleLogin = async (): Promise<void> => {
+  //   const provider = new GoogleAuthProvider();
+  //   try {
+  //     const result = await signInWithPopup(auth, provider);
+  //     setUser(result.user.displayName || result.user.email || "Unknown User");
+  //     router.push("/");
+  //   } catch (error) {
+  //     const authError = error as AuthError;
+  //     console.error("Login Error:", authError.message);
+  //   }
+  // };
 
   return (
     <main>
@@ -35,7 +35,7 @@ export default function LoginPage() {
       <LoginForm />
       </div>
       <div className="">
-      <button onClick={handleGoogleLogin}>Sign in with Google</button>
+      {/* <button onClick={handleGoogleLogin}>Sign in with Google</button> */}
       </div>
       </div>
     </main>
