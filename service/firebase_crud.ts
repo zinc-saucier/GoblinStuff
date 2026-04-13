@@ -1,3 +1,5 @@
+import { MagicItem } from "@/app/components/item";
+import MagicalItems from "@/app/dnd-5e/magical-item";
 import { db } from "@/util/firebase";
 import {
   collection,
@@ -58,7 +60,7 @@ export const addToCart = async (
   try {
     const docRef = doc(db, "Carts", User_ID);
     await updateDoc(docRef, {
-      items: arrayUnion({data}),
+      items: arrayUnion(data),
       updatedAt: serverTimestamp(),
     });
     return { success: true };
@@ -76,7 +78,7 @@ export const removeFromCart = async (
   try {
     const docRef = doc(db, "Carts", User_ID);
     await updateDoc(docRef, {
-      items: arrayRemove({data}),
+      items: arrayRemove(data),
       updatedAt: serverTimestamp(),
     });
     return { success: true };
@@ -94,7 +96,9 @@ export const getCart = async (
     const docRef = doc(db, "Carts", User_ID);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      return { id: docSnap.id, ...docSnap.data() };
+      const items:MagicItem[] = docSnap.data().items
+      
+      return items;
     }
     return null;
   } catch (error) {

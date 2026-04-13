@@ -1,68 +1,43 @@
 "use client"
-import Image from "next/image";
-import Link from "next/link";
-import Header from "./components/header";
-import Footer from "./components/footer";
+import Header from "./components/header"
+import Footer from "./components/footer"
+import MagicalItems from "./dnd-5e/magical-item"
+import { MagicItem } from "./components/item"
+import { useEffect, useState } from "react";
 import Item from "./components/item";
-import List from "./components/list";
-import SearchBar from "./components/search";
-import { createUser } from "@/service/firebase_crud";
-import {auth} from "@/util/firebase"
+import Image from "next/image"
 
 
+export default function catalogue() {
 
-export default function Home() {
+    const[item, setitem] = useState<MagicItem>();
 
-  // const createUserData = async () => {
-  //   createUser({
-  //       User_ID: `${auth.currentUser?.uid}`,
-  //       user_email: `${auth.currentUser?.email}`,
-  //       user_name: `${auth.currentUser?.displayName}`,
-  //     })
-    
-  // }
-
-
-  return (
-    <main>
-      <div>
-      <Header/>
-    </div>
-    <main className="flex min-h-screen w-full flex-3 flex-row justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-      <div className="flex flex-3 w-full flex-row justify-evenly">
+    return(
         <div>
-          {/* <button onClick={createUserData}>click to make user data</button> */}
-          {/* <Item index={""} name={""} url={""} updated={""} desc={""} image={""} equipment_cat={""} api_ref={{
-              index: "",
-              name: "",
-              url: "",
-              updated: ""
-            }} rarity={{
-              name: ""
-            }} variant={false}/> */}
+            <Header/>
+            <main className="flex min-h-screen w-full justify-center py-32 px-16 bg-white dark:bg-black sm:items-start">
+
+            <div className="grid grid-flow-col grid-cols-2 gap-10 justify-center mr-2"> 
+                <div className="col-start-1 justify-center mt-17">
+                  {item? <Item {...item!} /> : 
+                    <div>
+                        <Image
+                            className=""
+                            src="/images.jfif"
+                            alt="my greasy sack"
+                            height={600}
+                            width={200}
+                            priority
+                            />
+                    </div>}
+                </div>
+                <div className="col-start-2 justify-center">
+                    <MagicalItems setItem ={setitem}/>
+                </div>
+                
+            </div>
+            </main>
+            <Footer/>
         </div>
-        <div className="flex flex-col items-center justify-center w-full m-2 p-2">
-          <SearchBar/>
-        
-          <Image
-            className=""
-            src="/images.jfif"
-            alt="my greasy sack"
-            height={600}
-            width={200}
-            priority
-          />
-        </div>
-        
-        <div>
-          <List itemList={[]}/>
-        </div>
-      </div>
-    </main>
-    <div>
-      
-      <Footer/>
-    </div>
-    </main>
-  );
+    )
 }

@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword, AuthError } from "firebase/auth";
 import { auth } from "@/util/firebase";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/util/store";
+import { getCart } from "@/service/firebase_crud";
 
 export default function LoginForm() {
   const [email, setEmail] = useState<string>("");
@@ -22,9 +23,14 @@ export default function LoginForm() {
 
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
-      setUser(result.user.displayName || result.user.email || "Unknown User", result.user.uid);
-      console.log(result.user)
+      const user = auth.currentUser;
+      const cartItems = await getCart(`${user?.uid}`);
+      setUser(result.user.displayName || result.user.email || "Unknown User", result.user.uid, cartItems || null);
+      console.log(result.user.displayName, cartItems)
       
+      //retrieve user's cart details
+      //const cartItems = await getCart(`${user?.uid}`);
+      //console.log("cart items: ", cartItems)
       router.push("/"); // Redirect on success
     } catch (err) {
       const authError = err as AuthError;

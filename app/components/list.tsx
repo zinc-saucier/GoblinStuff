@@ -1,15 +1,6 @@
-/*
-* major components of list component:
-* item details
-* add to list
-* add to cart
-* 
-*/
 import { useState, useEffect } from "react";
-import Item from "./item";
 import { MagicItem } from "./item";
-import MagicalItems from "../dnd-5e/magical-item";
-import { getCart, removeFromCart } from "@/service/firebase_crud";
+import CartItem from "./cartItem";
 
 type list = {
     itemList: MagicItem[]
@@ -17,9 +8,14 @@ type list = {
 
 export default function List({itemList}:list) {
   
+
+
   const [hasList, setHasList] = useState(false);
+  const [list, setList] = useState(itemList);
   useEffect(()=>{
+      setHasList(false)
     if(itemList != null){
+      setList(itemList)
       setHasList(true)
     }
     },[itemList])
@@ -29,38 +25,31 @@ export default function List({itemList}:list) {
       
         <div>
           <div>
-            {!hasList && <p></p>}
-          </div>
-          <div>
+            {!hasList && <div></div>}
             {hasList &&
             <ul id="list of items">
-              {itemList.map((item, index) => (
-                <Item
-                  key={index}
-                  name={item.name}
-                  desc={item.desc}
-                  equipment_category={item.equipment_category}
-                  rarity={item.rarity}
-                  variant={item.variant} 
-                  index={""} 
-                  url={""} 
-                  updated={""} 
-                  image={""} 
-                  api_ref={{
-                    index: "",
-                    name: "",
-                    url: "",
-                    updated: ""
-                  }}                />
-              ))}
+              <p>Your Cart</p>
+              <li>{list.map((item, index) => (
+                <CartItem 
+                key={index}
+                index={item.index} 
+                name={item.name} 
+                url={item.url} 
+                updated={""} 
+                desc={item.desc} 
+                image={""} 
+                equipment_category={{
+                  index: `${item.equipment_category.index}`,
+                  name: `${item.equipment_category.name}`,
+                  url: `${item.equipment_category.url}`
+                }} 
+                rarity={{
+                  name: `${item.rarity.name}`
+                }} 
+                variant={false}/>
+              ))}</li>
             </ul>}
-          </div>
-        
-        <div>A List of Things!
-            <MagicalItems setItem={function (item: MagicItem) {
-              throw new Error("Function not implemented.");
-            } }/>
-        </div>
+          </div>        
       </div>
     );
 }

@@ -1,10 +1,12 @@
+import { MagicItem } from "@/app/components/item";
 import { create } from "zustand";
 
 // 1. Define the shape of the state
 interface UserState {
   user: string;
   id: string;
-  setUser: (newName: string, newID: string) => void;
+  cart: MagicItem[] | null,
+  setUser: (newName: string, newID: string, newCart: MagicItem[] | null) => void;
 }
 
 interface SearchState {
@@ -16,7 +18,8 @@ interface SearchState {
 export const useUserStore = create<UserState>((set) => ({
   user: "",
   id: "",
-  setUser: (newName, newID) => set({ user: newName, id: newID }),
+  cart: [],
+  setUser: (newName, newID, newCart ) => set({ user: newName, id: newID, cart: newCart}),
 }));
 
 export const useSearchStore = create<SearchState>((set) => ({
