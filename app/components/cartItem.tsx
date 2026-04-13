@@ -80,9 +80,9 @@ export default function CartItem(item: MagicItem) {
                 <p className="mb-3">Category: {item.equipment_category.name}</p>
                 <p className="mb-3">Rarity: {item.rarity ? item.rarity.name: "Varies"}</p>
                 {/* <p className="text-lg" onClick={() => handleVariant(item.variants ?item.variants.name : "no variant")}>Variant: {item.variants ? item.variants.name : "none" }</p> */}
-                <button onClick={()=> handleSelect(item)} className="border-2 border-orange-300 text-orange-300 p-3 rounded-full">
+                {/* <button onClick={()=> handleSelect(item)} className="border-2 border-orange-300 text-orange-300 p-3 rounded-full">
                 Remove from cart
-                </button>
+                </button> */}
             </li>}</ul>
             </div>
         </div>
