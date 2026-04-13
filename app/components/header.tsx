@@ -43,7 +43,7 @@ export default function Header() {
           </div>
           <div>
             {!isLoggedin && <p><Link href="/login">Login</Link></p>}
-            {isLoggedin && <p><Link href="/account">Account</Link></p>}
+            {/* {isLoggedin && <p><Link href="/account">Account</Link></p>} */}
             
           </div>
           <div>
