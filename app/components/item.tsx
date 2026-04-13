@@ -37,10 +37,11 @@ export type MagicItem = {
 export default function Item(item: MagicItem) {
 
     const [hasItem, setHasItem] = useState(false)
-   
+    const [buttonText,setbuttonText] = useState("add to cart")
     useEffect(()=>{
         if(item!=null){
             setHasItem(true);
+            setbuttonText("add to cart")
         }
     },[item])
 
@@ -49,7 +50,8 @@ export default function Item(item: MagicItem) {
     const handleSelect = (item:MagicItem) => {
         console.log("item: ", { item }, "added to list");
         CRUD.addToCart(`${auth.currentUser?.uid}`, item)
-        CRUD.getCart(`${auth.currentUser?.uid}`)   
+        CRUD.getCart(`${auth.currentUser?.uid}`)
+        setbuttonText("Item Added!")
         
     }
   
@@ -79,7 +81,7 @@ export default function Item(item: MagicItem) {
                 <p className="mb-3">Rarity: {item.rarity ? item.rarity.name: "Varies"}</p>
                 {/* <p className="text-lg" onClick={() => handleVariant(item.variants ?item.variants.name : "no variant")}>Variant: {item.variants ? item.variants.name : "none" }</p> */}
                 <button onClick={()=> handleSelect(item)} className="border-2 border-orange-300 text-orange-300 p-3 rounded-full">
-                Add to list
+                {buttonText}
                 </button>
             </li>}</ul>
             </div>

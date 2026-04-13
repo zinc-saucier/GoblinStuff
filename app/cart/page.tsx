@@ -6,23 +6,27 @@ import List from "../components/list";
 import { useEffect, useState } from "react";
 import { useUserStore } from "@/util/store";
 import * as CRUD from "@/service/firebase_crud";
+import { MagicItem } from "../components/item";
 
 export default function Cart() {
 
   const [isLoading, setLaoding] = useState(true)
   const user = useUserStore((state) => state)
   const setUser = useUserStore((state) => state.setUser)
+  const [cart, setcart]=useState<MagicItem[]> ([])
 
   const handleClear =() => {
     CRUD.clearCart(user.id)
+    setcart([])
   }
 
   useEffect(()=>{
     console.log(user)
       if(user.user.length > 0){
-        setLaoding(false) 
+        setLaoding(false)
+        setcart(user.cart!)
       }
-  },[user])
+  },[user,user.cart])
 
   // useEffect(()=> {
   //   setUser(user.user, user.id, user.cart)
@@ -37,7 +41,7 @@ return(
             <div className="grid grid-flow-col grid-cols-2 gap-10 justify-center mr-2"> 
                 <div className="col-start-1 justify-center mt-17">
                    {!user && <p></p>}
-                    {!isLoading && <List itemList={user.cart!}/>}
+                    {!isLoading && <List itemList={cart}/>}
                 </div>
                 <div className="col-start-2 justify-center">
                     <Image
