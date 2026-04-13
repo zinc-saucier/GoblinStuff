@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword, AuthError, updateProfile } from "fireba
 import { auth } from "@/util/firebase";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/util/store";
-import { createUser } from "@/service/firebase_crud";
+import { createUser, getCart } from "@/service/firebase_crud";
 
 export default function SignUpForm() {
   const [name, setName] = useState<string>("");
@@ -45,10 +45,11 @@ export default function SignUpForm() {
       );
       if(result.user){
         updateProfile(result.user, {displayName: name})
-        
+               
       }
+      const cartItems = await getCart(`${result.user?.uid}`);
       console.log("User created:", result.user);
-      setUser(result.user.displayName || result.user.email || "Unknown User", result.user.uid);  
+      setUser(result.user.displayName || result.user.email || "Unknown User", result.user.uid, cartItems || null);  
       
       router.push("/");
     } catch (err) {

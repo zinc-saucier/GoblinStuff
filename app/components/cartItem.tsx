@@ -59,7 +59,8 @@ export default function CartItem(item: MagicItem) {
             <div>
             {!hasItem && <p></p>}
             </div>
-            <div>{hasItem &&
+            <div>
+            <ul>{hasItem &&
             <li className="m-12" 
             key={item.name}>
                 <h2 className="text-2xl text-orange-400 text-center" >{item.name}</h2>
@@ -82,7 +83,7 @@ export default function CartItem(item: MagicItem) {
                 <button onClick={()=> handleSelect(item)} className="border-2 border-orange-300 text-orange-300 p-3 rounded-full">
                 Remove from cart
                 </button>
-            </li>}
+            </li>}</ul>
             </div>
         </div>
     );

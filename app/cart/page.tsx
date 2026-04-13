@@ -5,6 +5,7 @@ import Footer from "../components/footer";
 import List from "../components/list";
 import { useEffect, useState } from "react";
 import { useUserStore } from "@/util/store";
+import * as CRUD from "@/service/firebase_crud";
 
 export default function Cart() {
 
@@ -12,16 +13,20 @@ export default function Cart() {
   const user = useUserStore((state) => state)
   const setUser = useUserStore((state) => state.setUser)
 
+  const handleClear =() => {
+    CRUD.clearCart(user.id)
+  }
+
   useEffect(()=>{
     console.log(user)
-      if(user!=null){
+      if(user.user.length > 0){
         setLaoding(false) 
       }
   },[user])
 
-  useEffect(()=> {
-    setUser(user.user, user.id, user.cart)
-  },[user.cart])
+  // useEffect(()=> {
+  //   setUser(user.user, user.id, user.cart)
+  // },[user.cart])
   
   
 return(
@@ -43,6 +48,9 @@ return(
                       width={200}
                       priority
                     />
+                    
+                    {!user && <p></p>}
+                    {!isLoading && user && <button onClick={()=> handleClear()} className="border-2 border-orange-300 text-orange-300 p-3 rounded-full m-12">Clear Cart</button>}
                 </div>
                 
             </div>

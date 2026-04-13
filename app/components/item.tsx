@@ -58,7 +58,8 @@ export default function Item(item: MagicItem) {
             <div>
             {!hasItem && <p></p>}
             </div>
-            <div>{hasItem &&
+            <div>
+                <ul>{hasItem &&
             <li key={item.name}>
                 <h2 className="text-2xl text-orange-400 text-center" >{item.name}</h2>
                 <div className="flex flex-1 sm:items-center m-15 ">
@@ -80,7 +81,7 @@ export default function Item(item: MagicItem) {
                 <button onClick={()=> handleSelect(item)} className="border-2 border-orange-300 text-orange-300 p-3 rounded-full">
                 Add to list
                 </button>
-            </li>}
+            </li>}</ul>
             </div>
         </div>
     );
