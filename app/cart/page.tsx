@@ -12,7 +12,7 @@ export default function Cart() {
 
   const [isLoading, setLaoding] = useState(true)
   const user = useUserStore((state) => state)
-  const setUser = useUserStore((state) => state.setUser)
+  //const setUser = useUserStore((state) => state.setUser)
   const [cart, setcart]=useState<MagicItem[]> ([])
 
   const handleClear =() => {
