@@ -23,7 +23,7 @@ export default function catalogue() {
                     <div>
                         <Image
                             className=""
-                            src="/images.jfif"
+                            src="/images.png"
                             alt="my greasy sack"
                             height={600}
                             width={200}

@@ -46,7 +46,7 @@ return(
                 <div className="col-start-2 justify-center">
                     <Image
                       className=""
-                      src="/images.jfif"
+                      src="/images.png"
                       alt="my greasy sack"
                       height={600}
                       width={200}
