@@ -114,7 +114,7 @@ export default function MagicalItems({setItem}:selected) {
                 onChange={onChangeText}
                 
                 />
-                <button onClick={filter} className="ml-2 border-gray-400">Search</button>
+                <button onClick={filter} className="">Search</button>
             </div>
             <div>
                 <p>Results: {count}</p>

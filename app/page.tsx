@@ -14,7 +14,7 @@ export default function catalogue() {
 
     return(
         <div>
-            <Header currentPage="home"/>
+            <Header/>
             <main className="flex min-h-screen w-full justify-center py-32 px-16 bg-white dark:bg-black sm:items-start">
 
             <div className="grid grid-flow-col grid-cols-2 gap-10 justify-center mr-2"> 
