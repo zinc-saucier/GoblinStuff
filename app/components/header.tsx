@@ -7,9 +7,11 @@ import DisplayUserDetails from "./userdetails";
 import Link from "next/link";
 
 
+interface HeaderProps {
+  currentPage: string;
+}
 
-
-export default function Header() {
+export default function Header({ currentPage }: HeaderProps) {
 
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
@@ -53,7 +55,7 @@ export default function Header() {
         </div>
       </div>
       <div className="text-2xl"> 
-        <NavBar/>
+        <NavBar currentPage={currentPage}/>
       </div>
       
       

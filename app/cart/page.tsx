@@ -35,19 +35,19 @@ export default function Cart() {
   
 return(
         <div>
-            <Header/>
+            <Header currentPage="cart"/>
             <main className="flex min-h-screen w-full justify-center py-32 px-16 bg-white dark:bg-black sm:items-start">
 
             <div className="grid grid-flow-col grid-cols-2 gap-10 justify-center mr-2"> 
                 <div className="col-start-1 justify-center mt-17">
-                   {!user && <p></p>}
+                   {!user && <p>Log in to make be able to use your cart</p>}
                     {!isLoading && <List itemList={cart}/>}
                 </div>
                 <div className="col-start-2 justify-center">
                     <Image
                       className=""
                       src="/images.jfif"
-                      alt="my greasy sack"
+                      alt="A goblin in a sack"
                       height={600}
                       width={200}
                       priority
